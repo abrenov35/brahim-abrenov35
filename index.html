@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AB RENOV — Suivi Chantiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">AB</div>
+      <h1 class="login-title">AB RENOV</h1>
+      <p class="login-subtitle">Suivi chantiers — Accès privé</p>
+      <div class="input-group">
+        <input type="password" id="password-input" placeholder="Mot de passe" autocomplete="current-password" />
+        <button id="login-btn" onclick="checkPassword()">Entrer →</button>
+      </div>
+      <p id="login-error" class="login-error"></p>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <span class="brand-badge">AB</span>
+          <div>
+            <div class="brand-name">AB RENOV</div>
+            <div class="brand-sub">Suivi chantiers</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-refresh" onclick="loadData()" title="Actualiser">↻</button>
+          <button class="btn-logout" onclick="logout()">Déco.</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="stats-band">
+      <div class="stat-card">
+        <div class="stat-label">Prévisionnel</div>
+        <div class="stat-value" id="stat-previsionnel">—</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-label">Facturé <span id="stat-annee-label">2026</span></div>
+        <div class="stat-value" id="stat-facture-annee">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ce mois</div>
+        <div class="stat-value" id="stat-facture-mois">—</div>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="previsionnel" onclick="switchTab('previsionnel')">
+        <span class="tab-dot dot-orange"></span> Prévisionnels
+        <span class="tab-count" id="count-prev">0</span>
+      </button>
+      <button class="tab" data-tab="facture" onclick="switchTab('facture')">
+        <span class="tab-dot dot-green"></span> Facturés
+        <span class="tab-count" id="count-fact">0</span>
+      </button>
+      <button class="tab" data-tab="stats" onclick="switchTab('stats')">
+        ▦ Stats
+      </button>
+    </nav>
+
+    <main class="main-content">
+
+      <div id="tab-previsionnel" class="tab-content active">
+        <div class="section-header">
+          <h2>Chantiers prévisionnels</h2>
+          <button class="btn-add" onclick="openModal('add')">+ Ajouter</button>
+        </div>
+        <div class="info-banner">
+          <span>🟠</span> Dès qu'une facture est saisie, le chantier passe automatiquement en « Facturés ».
+        </div>
+        <div id="list-previsionnel" class="chantier-list">
+          <div class="loading">Chargement…</div>
+        </div>
+      </div>
+
+      <div id="tab-facture" class="tab-content">
+        <div class="section-header">
+          <h2>Chantiers facturés</h2>
+          <div class="filter-row">
+            <select id="filter-annee" onchange="renderFactures()">
+              <option value="">Toutes années</option>
+            </select>
+            <select id="filter-mois" onchange="renderFactures()">
+              <option value="">Tous mois</option>
+              <option value="1">Janvier</option>
+              <option value="2">Février</option>
+              <option value="3">Mars</option>
+              <option value="4">Avril</option>
+              <option value="5">Mai</option>
+              <option value="6">Juin</option>
+              <option value="7">Juillet</option>
+              <option value="8">Août</option>
+              <option value="9">Septembre</option>
+              <option value="10">Octobre</option>
+              <option value="11">Novembre</option>
+              <option value="12">Décembre</option>
+            </select>
+          </div>
+        </div>
+        <div id="list-facture" class="chantier-list">
+          <div class="loading">Chargement…</div>
+        </div>
+      </div>
+
+      <div id="tab-stats" class="tab-content">
+        <div class="section-header">
+          <h2>Statistiques</h2>
+          <select id="stats-annee" onchange="renderStats()">
+            <option value="">Toutes années</option>
+          </select>
+        </div>
+        <div id="stats-content">
+          <div class="loading">Chargement…</div>
+        </div>
+      </div>
+
+    </main>
+
+    <div id="status-bar" class="status-bar hidden"></div>
+
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="modal-title">Nouveau chantier</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="field-id" />
+        <div class="field-group">
+          <label>Client / Référence *</label>
+          <input type="text" id="field-client" placeholder="Ex : M. Dupont — Cuisine" />
+        </div>
+        <div class="field-group">
+          <label>Montant prévisionnel (€) *</label>
+          <input type="number" id="field-montant" placeholder="Ex : 2450" min="0" step="0.01" />
+        </div>
+        <div class="field-group">
+          <label>Information libre</label>
+          <input type="text" id="field-info" placeholder="Ex : Semaine 42 · Attente validation" />
+        </div>
+        <div class="field-group">
+          <label>Numéro de facture <span class="field-hint">(laisser vide si pas encore facturé)</span></label>
+          <input type="text" id="field-facture" placeholder="Ex : FAC-2026-018" />
+        </div>
+        <div class="field-group" id="field-date-group">
+          <label>Date de facturation</label>
+          <input type="date" id="field-date" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+          <button class="btn-save" onclick="saveChantier()">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
