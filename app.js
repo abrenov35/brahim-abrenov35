@@ -5,7 +5,7 @@
 
 // ── CONFIGURATION ──────────────────────────────────────
 // ⚠️  Remplacez cette URL par celle de votre Google Apps Script déployé
-const API_URL = 'https://script.google.com/macros/s/AKfycbyYJOFHlhkhpdl1SXpR_Kv-kI_Ra6dnHndtpEvZaAKGx_W6633bgwpYd9ALYMiSJ-bg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycby3QN0WWbYBqeaqv10kGsBBTnM3G_q-Midp1pvMRHm6Rv7cceD9sWDIObbxmQCI1Qi2Cg/exec';
 
 // Mot de passe du site (simple protection)
 // ⚠️  Changez ce mot de passe avant de publier
