@@ -64,23 +64,26 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 
 /* CARDS */
 .chantier-list{padding:0 16px}
-.chantier-card{background:#1e3d5f;border:1px solid var(--border2);border-radius:var(--radius);padding:15px 15px 12px 20px;margin-bottom:10px;position:relative;animation:fadeUp .22s ease;transition:border-color .2s,transform .15s}
+.chantier-card{background:#1e3d5f;border:1px solid var(--border2);border-radius:var(--radius);padding:10px 12px 10px 18px;margin-bottom:8px;position:relative;animation:fadeUp .22s ease;transition:border-color .2s,transform .15s}
 .chantier-card:hover{border-color:var(--violet);transform:translateY(-1px)}
 .chantier-card::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 2px 2px 0}
 .chantier-card.previsionnel::before{background:var(--violet)}
 .chantier-card.facture::before{background:var(--green)}
 .chantier-card.zero{opacity:.72}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:9px}
+.card-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-left{flex:1;min-width:0}
+.card-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.card-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .card-client{font-size:14px;font-weight:800;letter-spacing:.5px;flex:1;color:var(--beige);text-transform:uppercase}
 .card-montant{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--violet);white-space:nowrap}
 .card-montant.gris{font-size:13px;color:var(--muted);font-style:italic;font-weight:500}
 .chantier-card.facture .card-montant{color:var(--green)}
-.card-details{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+
 .card-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;background:rgba(243,234,226,0.1);color:rgba(243,234,226,0.82);border:1px solid var(--border)}
 .card-tag.ftag{background:var(--green2);color:var(--green);border-color:rgba(91,184,145,.3);font-family:var(--mono);font-size:10px}
 .card-tag.dtag{background:var(--violet2);color:var(--violet);border-color:rgba(164,160,195,.3)}
-.card-actions{display:flex;gap:6px;justify-content:flex-end}
-.btn-edit,.btn-del{padding:5px 14px;border-radius:6px;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border2);transition:all .15s}
+.card-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.btn-edit,.btn-del{width:30px;height:30px;border-radius:6px;cursor:pointer;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;padding:0}
 .btn-edit{background:transparent;color:var(--muted)}.btn-edit:hover{background:rgba(243,234,226,.08);color:var(--beige)}
 .btn-del{background:transparent;color:var(--dim)}.btn-del:hover{background:rgba(217,97,95,.12);color:var(--red);border-color:rgba(217,97,95,.3)}
 .empty-state{text-align:center;padding:48px 24px;color:var(--muted)}
@@ -290,17 +293,21 @@ function renderPrevisionnels() {
   el.innerHTML = list.map(c => {
     const z = Number(c.montant||0)===0;
     return `<div class="chantier-card previsionnel${z?' zero':''}">
-      <div class="card-top">
-        <div class="card-client">${esc(c.client)}</div>
-        <div class="card-montant${z?' gris':''}">${z?'À définir':fmt(c.montant)}</div>
-      </div>
-      <div class="card-details">
-        ${c.information?`<span class="card-tag">${esc(c.information)}</span>`:''}
-        <span class="card-tag dtag">${fmtDate(c.date_creation)}</span>
-      </div>
-      <div class="card-actions">
-        <button class="btn-edit" onclick="openModal('edit','${c.id}')">✏ Modifier</button>
-        <button class="btn-del" onclick="del('${c.id}')">✕</button>
+      <div class="card-row">
+        <div class="card-left">
+          <div class="card-client">${esc(c.client)}</div>
+          <div class="card-meta">
+            ${c.information?`<span class="card-tag">${esc(c.information)}</span>`:''}
+            <span class="card-tag dtag">${fmtDate(c.date_creation)}</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-montant${z?' gris':''}">${z?'À définir':fmt(c.montant)}</div>
+          <div class="card-actions">
+            <button class="btn-edit" onclick="openModal('edit','${c.id}')" title="Modifier">✏️</button>
+            <button class="btn-del" onclick="del('${c.id}')" title="Supprimer">✕</button>
+          </div>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -317,19 +324,23 @@ function renderFactures() {
   const el = document.getElementById('list-facture');
   if(!list.length){ el.innerHTML='<div class="empty-state"><div class="empty-icon">🧾</div><p>Aucun chantier facturé</p></div>'; return; }
   el.innerHTML = list.map(c => `<div class="chantier-card facture">
-    <div class="card-top">
-      <div class="card-client">${esc(c.client)}</div>
-      <div class="card-montant">${fmt(c.montant)}</div>
-    </div>
-    <div class="card-details">
-      <span class="card-tag ftag">${esc(c.facture)}</span>
-      <span class="card-tag dtag">${fmtDate(c.date_creation)}</span>
-      ${c.information?`<span class="card-tag">${esc(c.information)}</span>`:''}
-      <span class="card-tag">${nomMois(c.mois)} ${c.annee}</span>
-    </div>
-    <div class="card-actions">
-      <button class="btn-edit" onclick="openModal('edit','${c.id}')">✏ Modifier</button>
-      <button class="btn-del" onclick="del('${c.id}')">✕</button>
+    <div class="card-row">
+      <div class="card-left">
+        <div class="card-client">${esc(c.client)}</div>
+        <div class="card-meta">
+          <span class="card-tag ftag">${esc(c.facture)}</span>
+          <span class="card-tag dtag">${fmtDate(c.date_creation)}</span>
+          ${c.information?`<span class="card-tag">${esc(c.information)}</span>`:''}
+          <span class="card-tag">${nomMois(c.mois)} ${c.annee}</span>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-montant">${fmt(c.montant)}</div>
+        <div class="card-actions">
+          <button class="btn-edit" onclick="openModal('edit','${c.id}')" title="Modifier">✏️</button>
+          <button class="btn-del" onclick="del('${c.id}')" title="Supprimer">✕</button>
+        </div>
+      </div>
     </div>
   </div>`).join('');
 }
