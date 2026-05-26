@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AB RENOV — Suivi Chantiers</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- APP PRINCIPALE (pas d'écran de connexion) -->
   <div id="app">
 
-    <!-- HEADER -->
     <header class="header">
       <div class="header-inner">
         <div class="header-brand">
           <div class="brand-logo">
-            <span class="logo-a">A</span><span class="logo-b">B</span>
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+              <rect width="44" height="44" rx="10" fill="#F3EAE2"/>
+              <text x="7" y="32" font-family="Raleway,sans-serif" font-weight="900" font-size="24" fill="#162D49" letter-spacing="-2">AB</text>
+            </svg>
           </div>
           <div>
             <div class="brand-name">AB RENOV</div>
@@ -29,7 +30,6 @@
       </div>
     </header>
 
-    <!-- STATISTIQUES RAPIDES -->
     <section class="stats-band">
       <div class="stat-card">
         <div class="stat-label">Prévisionnel</div>
@@ -45,88 +45,65 @@
       </div>
     </section>
 
-    <!-- NAVIGATION ONGLETS -->
     <nav class="tabs">
       <button class="tab active" data-tab="previsionnel" onclick="switchTab('previsionnel')">
-        <span class="tab-dot dot-gold"></span> Prévisionnels
+        <span class="tab-dot dot-violet"></span> Prévisionnels
         <span class="tab-count" id="count-prev">0</span>
       </button>
       <button class="tab" data-tab="facture" onclick="switchTab('facture')">
-        <span class="tab-dot dot-green"></span> Facturés
+        <span class="tab-dot dot-beige"></span> Facturés
         <span class="tab-count" id="count-fact">0</span>
       </button>
-      <button class="tab" data-tab="stats" onclick="switchTab('stats')">
-        ▦ Stats
-      </button>
+      <button class="tab" data-tab="stats" onclick="switchTab('stats')">▦ Stats</button>
     </nav>
 
-    <!-- CONTENU PRINCIPAL -->
     <main class="main-content">
 
-      <!-- ONGLET PRÉVISIONNELS -->
       <div id="tab-previsionnel" class="tab-content active">
         <div class="section-header">
           <h2>Chantiers prévisionnels</h2>
           <button class="btn-add" onclick="openModal('add')">+ Ajouter</button>
         </div>
         <div class="info-banner">
-          <span>◈</span> Saisir un numéro de facture fait basculer le chantier en « Facturés » automatiquement.
+          Saisir un numéro de facture fait basculer le chantier en Facturés automatiquement.
         </div>
         <div id="list-previsionnel" class="chantier-list">
           <div class="loading">Chargement…</div>
         </div>
       </div>
 
-      <!-- ONGLET FACTURÉS -->
       <div id="tab-facture" class="tab-content">
         <div class="section-header">
           <h2>Chantiers facturés</h2>
           <div class="filter-row">
-            <select id="filter-annee" onchange="renderFactures()">
-              <option value="">Toutes années</option>
-            </select>
+            <select id="filter-annee" onchange="renderFactures()"><option value="">Toutes années</option></select>
             <select id="filter-mois" onchange="renderFactures()">
               <option value="">Tous mois</option>
-              <option value="1">Janvier</option>
-              <option value="2">Février</option>
-              <option value="3">Mars</option>
-              <option value="4">Avril</option>
-              <option value="5">Mai</option>
-              <option value="6">Juin</option>
-              <option value="7">Juillet</option>
-              <option value="8">Août</option>
-              <option value="9">Septembre</option>
-              <option value="10">Octobre</option>
-              <option value="11">Novembre</option>
-              <option value="12">Décembre</option>
+              <option value="1">Janvier</option><option value="2">Février</option>
+              <option value="3">Mars</option><option value="4">Avril</option>
+              <option value="5">Mai</option><option value="6">Juin</option>
+              <option value="7">Juillet</option><option value="8">Août</option>
+              <option value="9">Septembre</option><option value="10">Octobre</option>
+              <option value="11">Novembre</option><option value="12">Décembre</option>
             </select>
           </div>
         </div>
-        <div id="list-facture" class="chantier-list">
-          <div class="loading">Chargement…</div>
-        </div>
+        <div id="list-facture" class="chantier-list"><div class="loading">Chargement…</div></div>
       </div>
 
-      <!-- ONGLET STATS -->
       <div id="tab-stats" class="tab-content">
         <div class="section-header">
           <h2>Statistiques</h2>
-          <select id="stats-annee" onchange="renderStats()">
-            <option value="">Toutes années</option>
-          </select>
+          <select id="stats-annee" onchange="renderStats()"><option value="">Toutes années</option></select>
         </div>
-        <div id="stats-content">
-          <div class="loading">Chargement…</div>
-        </div>
+        <div id="stats-content"><div class="loading">Chargement…</div></div>
       </div>
 
     </main>
 
     <div id="status-bar" class="status-bar hidden"></div>
-
   </div>
 
-  <!-- MODAL AJOUTER / MODIFIER -->
   <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -140,7 +117,7 @@
           <input type="text" id="field-client" placeholder="Ex : M. Dupont — Cuisine" />
         </div>
         <div class="field-group">
-          <label>Montant prévisionnel (€) *</label>
+          <label>Montant (€)</label>
           <input type="number" id="field-montant" placeholder="Ex : 2450" min="0" step="0.01" />
         </div>
         <div class="field-group">
@@ -148,7 +125,7 @@
           <input type="text" id="field-info" placeholder="Ex : Semaine 42 · Attente validation" />
         </div>
         <div class="field-group">
-          <label>Numéro de facture <span class="field-hint">(laisser vide si pas encore facturé)</span></label>
+          <label>Numéro de facture <span class="field-hint">(vide = prévisionnel)</span></label>
           <input type="text" id="field-facture" placeholder="Ex : FAC-2026-018" />
         </div>
         <div class="field-group">
