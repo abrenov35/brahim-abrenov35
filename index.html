@@ -63,7 +63,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .btn-add::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent);pointer-events:none}
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,45,73,0.28)}
 .btn-add:active{transform:none}
-.chantier-list{padding:0 18px}
 .chantier-card{background:#fff;border:1px solid var(--border2);border-radius:var(--radius);padding:13px 14px 13px 20px;margin-bottom:9px;position:relative;animation:fadeUp .3s ease both;transition:all .2s;box-shadow:var(--shadow-sm);width:100%}
 .chantier-card:hover{border-color:rgba(22,45,73,0.22);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .chantier-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px}
@@ -151,7 +150,7 @@ input[type="date"]{color-scheme:light}
   .stats-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(min-width:880px){
-  .header-inner,.stats-band,.tabs,.main-content{max-width:880px;margin-left:auto;margin-right:auto}
+  .header-inner,.stats-band,.tabs{max-width:880px;margin-left:auto;margin-right:auto}
 }
 </style>
 
