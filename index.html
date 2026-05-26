@@ -19,8 +19,9 @@
   --hh:64px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html,body{width:100%;scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--beige);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+#app{width:100%}
 .hidden{display:none!important}
 
 /* HEADER */
@@ -53,8 +54,8 @@ body{font-family:var(--font);background:var(--beige);color:var(--text);min-heigh
 .tab.active .tab-count{background:var(--navy);color:#fff}
 
 /* MAIN */
-.main-content{max-width:860px;margin:0 auto;padding:0 0 80px}
-.tab-content{display:none}.tab-content.active{display:block}
+.main-content{width:100%;max-width:860px;margin:0 auto;padding:0 0 80px}
+.tab-content{display:none}.tab-content.active{display:block;width:100%}
 .section-header{display:flex;align-items:center;justify-content:space-between;padding:20px 16px 14px;gap:12px;flex-wrap:wrap}
 .section-header h2{font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--navy)}
 .filter-row{display:flex;gap:8px;flex-wrap:wrap}
@@ -64,8 +65,8 @@ body{font-family:var(--font);background:var(--beige);color:var(--text);min-heigh
 .btn-add:active{opacity:.8}
 
 /* CARDS */
-.chantier-list{padding:0 16px}
-.chantier-card{background:#fff;border:1px solid var(--border2);border-radius:var(--radius);padding:10px 12px 10px 18px;margin-bottom:8px;position:relative;animation:fadeUp .22s ease;transition:border-color .2s,transform .15s;box-shadow:0 1px 4px rgba(22,45,73,0.06)}
+.chantier-list{padding:0 16px;display:block;width:100%}
+.chantier-card{display:block;width:100%;box-sizing:border-box;background:#fff;border:1px solid var(--border2);border-radius:var(--radius);padding:10px 12px 10px 18px;margin-bottom:8px;position:relative;animation:fadeUp .22s ease;transition:border-color .2s,transform .15s;box-shadow:0 1px 4px rgba(22,45,73,0.06)}
 .chantier-card:hover{border-color:var(--navy);transform:translateY(-1px);box-shadow:0 3px 12px rgba(22,45,73,0.1)}
 .chantier-card::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 2px 2px 0}
 .chantier-card.previsionnel::before{background:var(--violet)}
@@ -149,7 +150,6 @@ input[type="date"]{color-scheme:light}
   .card-client{font-size:15px}.card-montant{font-size:18px}
   .stats-grid{grid-template-columns:repeat(3,1fr)}
 }
-.main-content{width:100%}
 @media(min-width:860px){
   .header-inner,.stats-band,.tabs{max-width:860px;margin-left:auto;margin-right:auto}
 }
