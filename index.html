@@ -69,10 +69,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .chantier-card.facture::before{background:linear-gradient(180deg,var(--green),rgba(61,158,112,0.3))}
 .chantier-card.zero{opacity:.6}
 .card-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.card-left{flex:1;min-width:0}
+.card-left{flex:1;min-width:0;overflow:hidden}
 .card-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .card-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-.card-client{font-size:13px;font-weight:800;letter-spacing:.8px;color:var(--navy);text-transform:uppercase}
+.card-client{font-size:13px;font-weight:800;letter-spacing:.8px;color:var(--navy);text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .card-montant{font-family:var(--serif);font-size:20px;font-weight:700;font-style:italic;color:var(--navy);white-space:nowrap}
 .card-montant.gris{font-size:13px;font-family:var(--font);color:var(--dim);font-style:normal;font-weight:500}
 .chantier-card.facture .card-montant{color:var(--green)}
