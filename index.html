@@ -49,7 +49,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .dot-v{background:var(--violet)}.dot-g{background:var(--green)}
 .tab-count{background:rgba(22,45,73,0.08);color:var(--muted);font-size:9px;padding:2px 7px;border-radius:99px;min-width:20px;text-align:center;font-family:var(--mono)}
 .tab.active .tab-count{background:var(--navy);color:#fff}
-.main-content{max-width:880px;margin:0 auto;padding:0 0 100px;position:relative;z-index:1}
+#app{width:100%;min-height:100vh}
+.main-content{max-width:880px;margin:0 auto;padding:0 0 100px;position:relative;z-index:1;width:100%}
+.chantier-list{padding:0 18px;width:100%}
 .tab-content{display:none}.tab-content.active{display:block}
 .section-header{display:flex;align-items:center;justify-content:space-between;padding:22px 18px 16px;gap:12px;flex-wrap:wrap}
 .section-header h2{font-family:var(--serif);font-size:24px;font-weight:600;font-style:italic;color:var(--navy)}
@@ -62,13 +64,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,45,73,0.28)}
 .btn-add:active{transform:none}
 .chantier-list{padding:0 18px}
-.chantier-card{background:#fff;border:1px solid var(--border2);border-radius:var(--radius);padding:13px 14px 13px 20px;margin-bottom:9px;position:relative;animation:fadeUp .3s ease both;transition:all .2s;box-shadow:var(--shadow-sm)}
+.chantier-card{background:#fff;border:1px solid var(--border2);border-radius:var(--radius);padding:13px 14px 13px 20px;margin-bottom:9px;position:relative;animation:fadeUp .3s ease both;transition:all .2s;box-shadow:var(--shadow-sm);width:100%}
 .chantier-card:hover{border-color:rgba(22,45,73,0.22);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .chantier-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px}
 .chantier-card.previsionnel::before{background:linear-gradient(180deg,var(--violet),rgba(164,160,195,0.4))}
 .chantier-card.facture::before{background:linear-gradient(180deg,var(--green),rgba(61,158,112,0.3))}
 .chantier-card.zero{opacity:.6}
-.card-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%}
 .card-left{flex:1;min-width:0;overflow:hidden}
 .card-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .card-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
