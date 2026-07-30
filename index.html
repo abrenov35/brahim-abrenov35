@@ -20,11 +20,60 @@ body{font-family:var(--font);background:var(--beige);color:var(--navy);min-heigh
 .brand-sub{font-size:9px;color:rgba(255,255,255,0.45);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-top:1px;}
 .btn-refresh{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.5);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 
-.stats-band{width:100%;background:var(--navy);padding:10px 16px 12px;display:flex;align-items:center;justify-content:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;}
-.stat-pill{display:flex;align-items:center;gap:7px;padding:6px 14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:99px;}
-.stat-pill-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);white-space:nowrap;}
-.stat-pill-sep{color:rgba(255,255,255,0.2);}
-.stat-pill-value{font-size:14px;font-weight:800;color:#fff;white-space:nowrap;}
+.stats-band{
+  width:100%;
+  background:var(--navy);
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;
+}
+.stat-pill{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:220px;
+  padding:12px 18px 12px 12px;
+  background:#EEF5FF;
+  border:1px solid rgba(22,45,73,.08);
+  border-radius:18px;
+  box-shadow:0 8px 24px rgba(5,22,43,.16);
+}
+.stat-icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:18px;
+  font-weight:900;
+  line-height:1;
+}
+.stat-icon.prev{background:#E8DFFF;color:#7652C8;}
+.stat-icon.fact{background:#DDF6E7;color:#2F9B5F;}
+.stat-icon.month{background:#DDEBFF;color:#377FDB;}
+.stat-pill-label{
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#5E718B;
+  white-space:nowrap;
+}
+.stat-pill-sep{color:#A4B3C8;}
+.stat-pill-value{
+  margin-left:auto;
+  font-size:17px;
+  font-weight:900;
+  color:#162D49;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
 
 .tabs{
 width:100%;
@@ -199,10 +248,60 @@ input[type="date"]{color-scheme:light;}
   .header-inner{padding:0 12px;}
   .brand-name{font-size:13px;letter-spacing:1.8px;}
   .brand-sub{font-size:8px;}
-  .stats-band{padding:8px 8px 10px;gap:6px;}
-  .stat-pill{padding:5px 9px;}
-  .stat-pill-label{font-size:8px;}
-  .stat-pill-value{font-size:12px;}
+  .stats-band{
+  width:100%;
+  background:var(--navy);
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;
+}
+.stat-pill{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:220px;
+  padding:12px 18px 12px 12px;
+  background:#EEF5FF;
+  border:1px solid rgba(22,45,73,.08);
+  border-radius:18px;
+  box-shadow:0 8px 24px rgba(5,22,43,.16);
+}
+.stat-icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:18px;
+  font-weight:900;
+  line-height:1;
+}
+.stat-icon.prev{background:#E8DFFF;color:#7652C8;}
+.stat-icon.fact{background:#DDF6E7;color:#2F9B5F;}
+.stat-icon.month{background:#DDEBFF;color:#377FDB;}
+.stat-pill-label{
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#5E718B;
+  white-space:nowrap;
+}
+.stat-pill-sep{color:#A4B3C8;}
+.stat-pill-value{
+  margin-left:auto;
+  font-size:17px;
+  font-weight:900;
+  color:#162D49;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
   .tab{font-size:9px;padding:11px 4px;letter-spacing:.6px;}
   .section-header{padding:14px 12px 10px;}
   .info-msg{margin-left:12px;margin-right:12px;}
@@ -235,9 +334,24 @@ input[type="date"]{color-scheme:light;}
 </header>
 
 <div class="stats-band">
-  <div class="stat-pill"><span class="stat-pill-label">Prévisionnel</span><span class="stat-pill-sep">·</span><span class="stat-pill-value" id="stat-prev">—</span></div>
-  <div class="stat-pill"><span class="stat-pill-label">Facturé <span id="stat-annee-label">2026</span></span><span class="stat-pill-sep">·</span><span class="stat-pill-value" id="stat-annee">—</span></div>
-  <div class="stat-pill"><span class="stat-pill-label">Ce mois</span><span class="stat-pill-sep">·</span><span class="stat-pill-value" id="stat-mois">—</span></div>
+  <div class="stat-pill">
+    <span class="stat-icon prev">▤</span>
+    <span class="stat-pill-label">Prévisionnel</span>
+    <span class="stat-pill-sep">·</span>
+    <span class="stat-pill-value" id="stat-prev">—</span>
+  </div>
+  <div class="stat-pill">
+    <span class="stat-icon fact">▧</span>
+    <span class="stat-pill-label">Facturé <span id="stat-annee-label">2026</span></span>
+    <span class="stat-pill-sep">·</span>
+    <span class="stat-pill-value" id="stat-annee">—</span>
+  </div>
+  <div class="stat-pill">
+    <span class="stat-icon month">▥</span>
+    <span class="stat-pill-label">Ce mois</span>
+    <span class="stat-pill-sep">·</span>
+    <span class="stat-pill-value" id="stat-mois">—</span>
+  </div>
 </div>
 
 <nav class="tabs">
