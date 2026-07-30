@@ -297,9 +297,13 @@ function renderFactures(){
   if(a)list=list.filter(c=>String(c.annee)===a);
   if(m)list=list.filter(c=>String(c.mois)===m);
 
-  list.sort((a,b)=>new Date(b.date_creation)-new Date(a.date_creation));
-  document.getElementById('count-fact').textContent=allData.filter(c=>c.statut==='facture').length;
+  list.sort((x,y)=>{
+    if(Number(y.annee)!==Number(x.annee)) return Number(y.annee)-Number(x.annee);
+    if(Number(y.mois)!==Number(x.mois)) return Number(y.mois)-Number(x.mois);
+    return new Date(y.date_creation)-new Date(x.date_creation);
+  });
 
+  document.getElementById('count-fact').textContent=allData.filter(c=>c.statut==='facture').length;
   const el=document.getElementById('list-facture');
 
   if(!list.length){
@@ -307,7 +311,17 @@ function renderFactures(){
     return;
   }
 
-  el.innerHTML=list.map(c=>`
+  let html='';
+  let current='';
+
+  list.forEach(c=>{
+    const grp=`${nomMois(c.mois).toUpperCase()} ${c.annee}`;
+    if(grp!==current){
+      current=grp;
+      html+=`<div style="margin:20px 0 10px;font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--navy);border-bottom:2px solid rgba(22,45,73,.12);padding-bottom:6px;">${grp}</div>`;
+    }
+
+    html+=`
     <div class="card fact">
       <div class="card-row">
         <div class="card-left">
@@ -316,7 +330,6 @@ function renderFactures(){
             <span class="tag t-fact">${esc(c.facture)}</span>
             <span class="tag t-date">${fmtDate(c.date_creation)}</span>
             ${c.information?`<span class="tag">${esc(c.information)}</span>`:''}
-            <span class="tag">${nomMois(c.mois)} ${c.annee}</span>
           </div>
         </div>
         <div class="card-right">
@@ -327,8 +340,10 @@ function renderFactures(){
           </div>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  });
+
+  el.innerHTML=html;
 }
 
 function renderStats(){
