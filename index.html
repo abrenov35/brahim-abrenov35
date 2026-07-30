@@ -34,7 +34,7 @@ padding:14px 16px;
 display:flex;
 justify-content:center;
 gap:14px;
-background:var(--beige);
+background:#FFFFFF;
 border:none;
 position:sticky;
 top:var(--hh);
@@ -50,9 +50,7 @@ align-items:center;
 justify-content:center;
 gap:8px;
 border-radius:999px;
-border:1px solid rgba(22,45,73,.10);
-background:#F7F3EE;
-color:#6D7380;
+border:1px solid rgba(22,45,73,.08);
 font-family:var(--font);
 font-size:11px;
 font-weight:800;
@@ -60,20 +58,43 @@ letter-spacing:1px;
 text-transform:uppercase;
 cursor:pointer;
 transition:.2s;
-box-shadow:0 2px 8px rgba(22,45,73,.05);
+box-shadow:0 4px 12px rgba(22,45,73,.08);
+}
+.tab[data-tab="previsionnel"]{
+background:#E9E6F5;
+color:#514C78;
+}
+.tab[data-tab="facture"]{
+background:#E4F3EB;
+color:#2F7556;
+}
+.tab[data-tab="stats"]{
+background:#E8EEF6;
+color:#415974;
 }
 .tab:hover{
-background:#fff;
-border-color:rgba(22,45,73,.18);
+transform:translateY(-1px);
+filter:brightness(.99);
 }
 .tab.active{
-background:#162D49;
-color:#fff;
-box-shadow:0 8px 22px rgba(22,45,73,.20);
+border-color:rgba(22,45,73,.16);
+box-shadow:0 6px 16px rgba(22,45,73,.14);
+}
+.tab[data-tab="previsionnel"].active{
+background:#D9D3EF;
+color:#3F3969;
+}
+.tab[data-tab="facture"].active{
+background:#D1EBDC;
+color:#256448;
+}
+.tab[data-tab="stats"].active{
+background:#D8E3F0;
+color:#304A67;
 }
 .tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.dot-v{background:#B7B0D8;}
-.dot-g{background:#59B784;}
+.dot-v{background:#9A91C9;}
+.dot-g{background:#4FB27C;}
 .tab-count{
 min-width:24px;
 height:24px;
@@ -82,18 +103,18 @@ display:flex;
 align-items:center;
 justify-content:center;
 border-radius:999px;
-background:#E7ECF3;
-color:#162D49;
+background:rgba(255,255,255,.78);
+color:inherit;
 font-size:10px;
 font-weight:900;
 font-family:var(--mono);
 }
 .tab.active .tab-count{
-background:#fff;
-color:#162D49;
+background:#FFFFFF;
+color:inherit;
 }
 @media(max-width:600px){
-.tabs{gap:8px;padding:10px;}
+.tabs{gap:8px;padding:10px;background:#FFFFFF;}
 .tab{min-width:0;flex:1;font-size:9px;height:42px;padding:0 8px;}
 }
 
