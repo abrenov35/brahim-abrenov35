@@ -131,7 +131,7 @@ body{font-family:var(--font);background:var(--beige);color:var(--navy);min-heigh
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:10px 0 0 10px;}
 .card.prev::before{background:var(--violet);}
 .card.fact::before{background:var(--green);}
-.card.zero{opacity:.65;}
+.card.zero{opacity:1;}
 .card-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;}
 .card-left{flex:1;min-width:0;overflow:hidden;}
 .card-client{font-size:13px;font-weight:800;letter-spacing:.5px;color:var(--navy);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -331,11 +331,11 @@ function renderAll(){
 
 function renderPrevisionnels(){
   let list=allData.filter(c=>c.statut==='previsionnel');
+
   list.sort((a,b)=>{
-    const ma=Number(a.montant||0),mb=Number(b.montant||0);
-    if(ma===0&&mb>0)return 1;
-    if(mb===0&&ma>0)return -1;
-    return mb-ma;
+    const da=new Date(a.date_creation||0);
+    const db=new Date(b.date_creation||0);
+    return db-da;
   });
 
   document.getElementById('count-prev').textContent=list.length;
@@ -349,13 +349,13 @@ function renderPrevisionnels(){
   el.innerHTML=list.map(c=>{
     const z=Number(c.montant||0)===0;
     return`
-      <div class="card prev${z?' zero':''}">
+      <div class="card prev">
         <div class="card-row">
           <div class="card-left">
             <div class="card-client">${esc(c.client)}</div>
             <div class="card-meta">
-              ${c.information?`<span class="tag">${esc(c.information)}</span>`:''}
               <span class="tag t-date">${fmtDate(c.date_creation)}</span>
+              ${c.information?`<span class="tag">${esc(c.information)}</span>`:''}
             </div>
           </div>
           <div class="card-right">
